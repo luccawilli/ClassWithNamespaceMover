@@ -7,6 +7,7 @@
         xmlns:t="clr-namespace:ClassWithNamespaceMover.Control"
         mc:Ignorable="d"
         Name="mainWindow"
+        Background="#F5F7FA"
         Title="CNM - Class Namespace Mover" Height="450" Width="800">
     <Window.Resources>
         <ResourceDictionary>
@@ -18,18 +19,19 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="65"/>
-            <RowDefinition Height="55"/>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="90"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" HorizontalAlignment="Stretch">
-            <Border CornerRadius="4" HorizontalAlignment="Stretch" Margin="0,0,10,0">
-                <TextBlock Text="{Binding StatusText, ElementName=mainWindow}" 
-                        Foreground="{Binding StatusForeground, ElementName=mainWindow}" 
-                        FontWeight="SemiBold" Margin="10" Height="20"
-                        TextWrapping="Wrap"/>
-            </Border>
-            <DockPanel Grid.Row="1" HorizontalAlignment="Right">
+            <ContentControl HorizontalAlignment="Stretch" Margin="10,0,10,0">
+                <DockPanel Width="508">
+                    <Label Margin="0,0" DockPanel.Dock="Top" FontSize="24">Class Namespace Mover</Label>
+                    <TextBlock Margin="5,0" Text="Fügt bei Klassen die eine der 'verschobenen Klassen' verwenden den neuen Namespace als using hinzu falls dieser nicht schon vorhanden ist." 
+                       TextWrapping="Wrap" Height="40" Style="{StaticResource Titles}"/>
+                </DockPanel>
+            </ContentControl>
+            <DockPanel Grid.Row="1" HorizontalAlignment="Right" Height="65">
                 <Button x:Name="ClearButton" Content="Clear" Margin="10,10,5,10" 
                 Command="{Binding ClearCommand, ElementName=mainWindow}" Width="80" Style="{StaticResource SecondaryButton}"/>
                 <Button x:Name="StartButton" Content="Start" Margin="5,10,10,10" 
@@ -37,25 +39,26 @@
             </DockPanel>
         </DockPanel>
 
-        <TextBlock Grid.Row="1" Text="Fügt bei Klassen die eine der 'verschobenen Klassen' verwenden den neuen Namespace als using hinzu falls dieser nicht schon vorhanden ist." 
-                       TextWrapping="Wrap" Height="50" Style="{StaticResource Titles}"/>
-        <DockPanel Grid.Row="2">
-            <TextBlock DockPanel.Dock="Top" Text="Verzeichnis" Style="{StaticResource Titles}"/>
-            <DockPanel DockPanel.Dock="Top" Margin="10,5,10,10">
-                <Button DockPanel.Dock="Right" Style="{StaticResource TransparentButton}" Margin="5,0,0,0" Width="30" ToolTip="Verzeichnis wählen" Click="HandleChooseOutputFolderPathClick">
-                    <Image Source="{StaticResource FolderDrawingImage}" Width="15"></Image>
-                </Button>
-                <TextBox DockPanel.Dock="Left" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="25"                  
+        <ContentControl Grid.Row="1" Style="{StaticResource MaterialGroup}">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Top" Text="Verzeichnis" Style="{StaticResource Titles}"/>
+                <DockPanel DockPanel.Dock="Top" Margin="10,5,10,10">
+                    <Button DockPanel.Dock="Right" Style="{StaticResource TransparentButton}" Margin="5,0,0,0" Width="30" ToolTip="Verzeichnis wählen" Click="HandleChooseOutputFolderPathClick">
+                        <Image Source="{StaticResource FolderDrawingImage}" Width="15"></Image>
+                    </Button>
+                    <TextBox DockPanel.Dock="Left" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="25"                  
                  Text="{Binding FolderPath, Mode=TwoWay, ElementName=mainWindow}" ToolTip="{Binding FolderPath, ElementName=mainWindow}"/>
-            </DockPanel>
-            <TextBlock DockPanel.Dock="Top" Text="Neuer Namespace" Style="{StaticResource Titles}"/>
-            <TextBox DockPanel.Dock="Top" Margin="10,5,10,10" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="25"                  
+                </DockPanel>
+                <TextBlock DockPanel.Dock="Top" Text="Neuer Namespace" Style="{StaticResource Titles}"/>
+                <TextBox DockPanel.Dock="Top" Margin="10,5,10,10" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="25"                  
                  Text="{Binding NewNamespace, ElementName=mainWindow}" />
-            <TextBlock DockPanel.Dock="Top" Text="Verschobene Klassen, Komma separiert" Style="{StaticResource Titles}"/>
-            <TextBox DockPanel.Dock="Top" Margin="10,5,10,10" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="25"     
+                <TextBlock DockPanel.Dock="Top" Text="Verschobene Klassen, Komma separiert" Style="{StaticResource Titles}"/>
+                <TextBox DockPanel.Dock="Top" Margin="10,5,10,10" VerticalAlignment="Top" HorizontalAlignment="Stretch" Height="25"     
                  ToolTip="Klassen-/Interface-/Emum-Namen separiert durch Kommas - Bsp.: Class1, Test3, Enum2, Interface6"
                  Text="{Binding MovedClassNames, ElementName=mainWindow}" />
-        </DockPanel>
+                <TextBlock Margin="10,0" Text="{Binding StatusText, ElementName=mainWindow}" DockPanel.Dock="Top"  TextWrapping="Wrap"></TextBlock>
+            </DockPanel>
+        </ContentControl>
     </Grid>
-    
+
 </Window>
